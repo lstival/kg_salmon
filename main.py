@@ -1,8 +1,12 @@
 import warnings
 import os
+import torch
 
-# Note: We avoid importing torchvision or filtering it here to prevent 
-# "Entry Point Not Found" DLL errors in mismatched environments.
+# Workaround for "Entry Point Not Found" DLL errors in Windows/Conda
+# by ensuring torch is loaded before any other dependencies that might 
+# trigger torchvision imports (e.g., PyKeen or SBERT).
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+warnings.filterwarnings("ignore", category=UserWarning, module="torchvision.io.image")
 
 from kg_project.config import DEFAULT_CONFIG
 from kg_project.engine.runner import ExperimentRunner

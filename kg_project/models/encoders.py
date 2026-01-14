@@ -23,6 +23,21 @@ class TransformerBaseline(nn.Module):
         x = self.transformer(x)
         return self.fc(x)
 
+    def predict_t(self, hr_indices: torch.Tensor) -> torch.Tensor:
+        """
+        PyKeen-compatible score function for all possible tails.
+        For a baseline transformer, we return a similarity score based on head embeddings.
+        """
+        # (Batch, 2) -> h_indices, r_indices
+        h_indices = hr_indices[:, 0]
+        # Get head embeddings
+        h_embeds = self.forward(h_indices.unsqueeze(1)).squeeze(1) # (Batch, Dim)
+        # All entity embeddings
+        all_embeds = self.embedding.weight # (NumEntities, Dim)
+        # Simple dot product as score
+        scores = torch.mm(h_embeds, all_embeds.t())
+        return scores
+
 class KGEncoderFactory:
     """
     Factory class to create and manage Knowledge Graph Encoders.

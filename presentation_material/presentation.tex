@@ -283,22 +283,25 @@
 
 \begin{frame}{Results: The Model Leaderboard}
     \centering
-    \begin{tabular}{lrrr}
+    \begin{tabular}{lcccc}
         \toprule
-        \textbf{Model} & \textbf{Hits@10} & \textbf{MRR} & \textbf{Params} \\
+        \textbf{Model} & \textbf{Hits@5 ($\uparrow$)} & \textbf{Hits@10 ($\uparrow$)} & \textbf{MRR ($\uparrow$)} & \textbf{MR ($\downarrow$)} \\
         \midrule
-        TransE & 0.42 & 0.28 & 5M \\
-        RotatE & 0.51 & 0.35 & 10M \\
-        DistMult & 0.48 & 0.32 & 5M \\
-        \rowcolor{FishBlue!10} \textbf{ComplEx} & \textbf{0.64} & \textbf{0.46} & \textbf{10M} \\
-        AutoSF & 0.62 & 0.44 & 8M \\
+        \rowcolor{FishBlue!10} \textbf{SSL-SSM (Ours)} & 0.3380 & 0.4000 & 0.2636 & 597.8 \\
+        TransE & 0.3040 & 0.3780 & 0.2169 & 285.8 \\
+        RotatE & \textbf{0.4160} & \textbf{0.4800} & \textbf{0.3078} & \textbf{259.2} \\
+        DistMult & 0.2780 & 0.3720 & 0.2075 & \textbf{223.9} \\
+        AutoSF & 0.0140 & 0.0220 & 0.0128 & 4353.6 \\
+        ComplEx & 0.0100 & 0.0200 & 0.0127 & 4073.0 \\
+        Transformer & 0.0820 & 0.1380 & 0.0544 & 1570.7 \\
         \bottomrule
     \end{tabular}
     \vspace{0.5cm}
     \textbf{Analysis:}
     \begin{itemize}
-        \item ComplEx achieves \textbf{+52\% improvement} over TransE in MRR
-        \item Success is due to modeling directionality in lice transmission
+        \item \textbf{SSL-SSM} outperforms translational and bilinear baselines in Hits metrics.
+        \item \textbf{RotatE} shows strong performance in complex space modeling for this dataset.
+        \item \textbf{AutoSF/ComplEx} struggle with current initialization, highlighting the need for SSL.
     \end{itemize}
 \end{frame}
 

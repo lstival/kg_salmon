@@ -18,7 +18,7 @@ class KGConfig:
     
     # Training parameters
     epochs: int = 25
-    embedding_dim: int = 50
+    embedding_dim: int = 64
     num_layers: int = 3
     ssl_temp: float = 0.1 # Temperature for InfoNCE
     ssl_negatives: int = 64 # Negatives per batch sample
@@ -37,7 +37,7 @@ class KGConfig:
 
 # Default configuration (User requested: 'fb15k237')
 DEFAULT_CONFIG = KGConfig(
-    dataset_name="umls",
+    dataset_name="fb15k237",
     epochs=25,
     num_layers=3, 
     num_query_entities=5
@@ -45,7 +45,7 @@ DEFAULT_CONFIG = KGConfig(
 
 # Challenging Benchmark Config (Standard for Research Papers)
 FB15K_CONFIG = KGConfig(
-    dataset_name="umls",
+    dataset_name="fb15k237",
     epochs=10, # Fewer epochs initially as training will take longer
     num_query_entities=5
 )

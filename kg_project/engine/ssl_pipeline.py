@@ -51,7 +51,7 @@ class SSLPipeline:
         for epoch in range(1, epochs + 1):
             loss = self.trainer.run_ssl_epoch(triples)
             if epoch % 5 == 0 or epoch == 1:
-                print(f"  Epoch {epoch:02d}/{epochs} | Loss: {loss:.6f}")
+                print(f"  Epoch {epoch:02d}/{epochs} | Loss (↓): {loss:.6f}")
         
         # Save model
         save_path = os.path.join(self.checkpoint_dir, f"ssm_ssl_{self.dataset_name}.pt")

@@ -40,7 +40,9 @@ class ExperimentRunner:
             temp=self.config.ssl_temp,
             num_negatives=self.config.ssl_negatives
         )
-        ssl_pipe.run_training(epochs=self.config.epochs)
+        
+        train_func = lambda: ssl_pipe.run_training(epochs=self.config.epochs)
+        _, ssl_elapsed = KGProfiler.measure_time(train_func)
         ssl_metrics = ssl_pipe.evaluate()
         
         # 2. Baseline Comparison
@@ -98,7 +100,7 @@ class ExperimentRunner:
         # Add SSL metrics to the final summary table
         results_summary.insert(0, {
             "model": "SSL-SSM (Ours)",
-            "time": 0.0, # Training time tracked separately
+            "time": ssl_elapsed,
             "gflops": 0.0,
             "metrics": ssl_metrics
         })
@@ -107,9 +109,10 @@ class ExperimentRunner:
 
     def _print_summary(self, summary):
         print("\n=== Comprehensive Journal-Grade Summary ===")
-        header = f"{'Model':<15} | {'Hits@5':<8} | {'Hits@10':<8} | {'MRR':<8} | {'MR':<8}"
+        # Higher is better for Hits and MRR (indicated by ↑), Lower is better for MR (indicated by ↓)
+        header = f"{'Model':<15} | {'Hits@5 (↑)':<10} | {'Hits@10 (↑)':<11} | {'MRR (↑)':<10} | {'MR (↓)':<10}"
         print(header)
         print("-" * len(header))
         for res in summary:
             m = res['metrics']
-            print(f"{res['model']:<15} | {m['Hits@5']:<8.4f} | {m['Hits@10']:<8.4f} | {m['MRR']:<8.4f} | {m['MR']:<8.1f}")
+            print(f"{res['model']:<15} | {m['Hits@5']:<10.4f} | {m['Hits@10']:<11.4f} | {m['MRR']:<10.4f} | {m['MR']:<10.1f}")
