@@ -1,1 +1,23 @@
 /checkpoints
+
+# LaTeX
+*.aux
+*.log
+*.toc
+*.out
+*.nav
+*.snm
+*.vrb
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.bbl
+*.blg
+*.thm
+*.idx
+*.ilg
+*.ind
+*.lof
+*.lot
+*.run.xml
+*.bcf

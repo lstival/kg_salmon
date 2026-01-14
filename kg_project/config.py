@@ -10,7 +10,11 @@ class KGConfig:
     dataset_name: str = "umls"
     
     # Model selection (list of models to benchmark)
-    models: List[str] = field(default_factory=lambda: ["transe", "rotate", "distmult", "autosf", "complex"])
+    models: List[str] = field(default_factory=lambda: ["transe", "rotate", "distmult", "autosf", "complex", "transformer_baseline"])
+    
+    # NLP parameters
+    use_sbert: bool = True
+    sbert_model: str = "paraphrase-MiniLM-L6-v2"
     
     # Training parameters
     epochs: int = 25

@@ -73,7 +73,8 @@ class ExperimentRunner:
             train_func = lambda: trainer.train(
                 model_name, 
                 epochs=self.config.epochs, 
-                embedding_dim=self.config.embedding_dim
+                embedding_dim=self.config.embedding_dim,
+                use_sbert=self.config.use_sbert
             )
             train_result, elapsed = KGProfiler.measure_time(train_func)
             
